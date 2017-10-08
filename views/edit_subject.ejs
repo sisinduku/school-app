@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+      <h2>Add New Contact</h2>
+      <% if(err) { %>
+        <div class="card text-white bg-danger">
+          <div class="card-body">
+            <%= err.message %>
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <form action="/subjects/edit/<%= data.id %>" method="post">
+        <table class="table">
+          <input type="hidden" name="id" value="<%= data.id %>">
+          <tr>
+            <td>Subject Name</td>
+            <td>:</td>
+            <td><input type="text" name="subject_name" value="<%= data.subject_name %>" required></td>
+          </tr>
+          <tr>
+            <td colspan="3"><input class="btn btn-primary" type="submit" name="submit" value="Update"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <% include ./partials/footer %>
+  </body>
+</html>

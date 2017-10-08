@@ -6,7 +6,7 @@ class SubjectCtrl {
       })
       .then(subjects => {
         res.render('show_list_subjects', {
-          title: 'Show All Subjrcts',
+          title: 'Show All Subjects',
           subjects: subjects,
           page: 'subjects-nav',
           err: param.hasOwnProperty('err') ? param.err : null,
@@ -111,6 +111,66 @@ class SubjectCtrl {
           err: reason.errors[0],
           repopulate: req.body,
         });
+      })
+  }
+
+  static getEdit(req, res, param) {
+    model.Subject.findOne({
+        where: {
+          id: req.params.subjectId
+        }
+      })
+      .then(subject => {
+        subject.id = req.params.subjectId;
+        res.render('edit_subject', {
+          data: subject,
+          title: 'Show All Subjects',
+          page: 'subjects-nav',
+          err: (param.hasOwnProperty('err')) ? param.err : null,
+          repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
+        })
+      })
+      .catch(reason => {
+        console.log(reason);
+      })
+  }
+
+  static updateSubject(req, res) {
+    Promise.all([
+        model.Subject.update(req.body, {
+          where: {
+            id: req.params.subjectId
+          }
+        }),
+        model.Subject.findOne({
+          where: {
+            id: req.params.subjectId
+          }
+        })
+      ])
+      .then(values => {
+        res.redirect('/subjects');
+      })
+      .catch(reason => {
+        this.getEdit(req, res, {
+          data: values[1],
+          err: reason.errors[0],
+          repopulate: req.body
+        });
+      })
+  }
+
+  static deleteSubject(req, res) {
+    model.Subject.destroy({
+        where: {
+          id: req.params.subjectId
+        }
+      })
+      .then(() => {
+        this.getIndex(req, res, {});
+      })
+      .catch(reason => {
+        console.log(reason);
       })
   }
 }
