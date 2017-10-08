@@ -26,4 +26,16 @@ router.post('/add/', (req, res) => {
   SubjectCtrl.postSubject(req, res);
 });
 
+router.get('/delete/:subjectId', (req, res) => {
+  SubjectCtrl.deleteSubject(req, res);
+});
+
+router.get('/edit/:subjectId', (req, res) => {
+  SubjectCtrl.getEdit(req, res, {});
+});
+
+router.post('/edit/:subjectId', (req, res) => {
+  SubjectCtrl.updateSubject(req, res);
+});
+
 module.exports = router;
