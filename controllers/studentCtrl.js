@@ -1,7 +1,11 @@
 const model = require('../models');
 class StudentCtrl {
   static getIndex(req, res, param) {
-    model.Student.findAll()
+    model.Student.findAll({
+        order: [
+          ['first_name', 'ASC']
+        ]
+      })
       .then(students => {
         res.render('show_list_students', {
           title: 'Show All Students',
@@ -79,6 +83,7 @@ class StudentCtrl {
       })
       .catch(reason => {
         this.getEdit(req, res, {
+          data: values[1],
           err: reason.errors[0],
           repopulate: req.body
         });
@@ -96,6 +101,75 @@ class StudentCtrl {
       })
       .catch(reason => {
         console.log(reason);
+      })
+  }
+
+  static getAddSubject(req, res, param) {
+    Promise.all([
+        model.Student.findOne({
+          where: {
+            id: req.params.studentId
+          },
+          include: ['Subjects']
+        }),
+        model.Subject.findAll(),
+      ])
+      .then(values => {
+        let result = values[1].filter(subject => {
+          let exist = false;
+          values[0].Subjects.forEach(element => {
+            if (element.id === subject.id)
+              exist = true;
+          });
+          return !exist;
+        });
+        console.log('here!: ', result);
+        res.render('add_student_subject', {
+          data: values[0],
+          subjects: result,
+          title: 'Show All Students',
+          page: 'students-nav',
+          err: (param.hasOwnProperty('err')) ? param.err : null,
+        })
+      })
+      .catch(reason => {
+        console.log(reason);
+      });
+  }
+
+  static addSubject(req, res, param) {
+    Promise.all([
+        model.StudentSubject.create({
+          studentId: req.params.studentId,
+          subjectId: req.body.subject,
+        }),
+        model.Student.findOne({
+          where: {
+            id: req.params.studentId
+          },
+          include: ['Subjects']
+        }),
+        model.Subject.findAll(),
+      ])
+      .then(values => {
+        res.redirect('/students');
+      })
+      .catch(reason => {
+        let result = values[2].filter(subject => {
+          let exist = false;
+          values[1].Subjects.forEach(element => {
+            if (element.id === subject.id)
+              exist = true;
+          });
+          if (!exist)
+            return subject
+        });
+        this.getAddSubject(req, res, {
+          data: values[1],
+          subjects: result,
+          err: reason.errors[0],
+          repopulate: req.body
+        });
       })
   }
 }

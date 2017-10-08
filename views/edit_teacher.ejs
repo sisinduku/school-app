@@ -6,7 +6,7 @@
   <body>
     <% include ./partials/header %>
     <div class="container">
-      <h2>Add New Contact</h2>
+      <h2>Edit <%= data.getFullName() %></h2>
       <% if(err) { %>
         <div class="card text-white bg-danger">
           <div class="card-body">
@@ -15,7 +15,7 @@
         </div>
         <br>
       <% } %>
-      <form action="/students/edit/<%= data.id %>" method="post">
+      <form action="/teachers/edit/<%= data.id %>" method="post">
         <table class="table">
           <input type="hidden" name="id" value="<%= data.id %>">
           <tr>
@@ -32,6 +32,24 @@
             <td>Email</td>
             <td>:</td>
             <td><input type="text" name="email" value="<%= data.email %>" required></br></td>
+          </tr>
+          <tr>
+            <td>Subject</td>
+            <td>:</td>
+            <td>
+              <select name="subjectId" required>
+                <option disabled selected value>Please Select Subject</option>
+                <%listSubjects.forEach((subject, index) => {%>
+                  <%if(repopulate){%>
+                    <option <%= (repopulate.subjectId == subject.id) ? 'selected' : '';%> value="<%= subject.id %>"><%= subject.subject_name %></option>
+                  <%} else if(data) { %>
+                    <option <%= (data.subjectId == subject.id) ? 'selected' : '';%> value="<%= subject.id %>"><%= subject.subject_name %></option>
+                  <% } else { %>
+                    <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+                  <%}%>
+                <%})%>
+              </select>
+            </td>
           </tr>
           <tr>
             <td colspan="3"><input class="btn btn-primary" type="submit" name="submit" value="Update"></td>

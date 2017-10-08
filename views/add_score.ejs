@@ -6,7 +6,7 @@
   <body>
     <% include ./partials/header %>
     <div class="container">
-      <h2>Add New Contact</h2>
+      <h2>Add Score</h2>
       <% if(err) { %>
         <div class="card text-white bg-danger">
           <div class="card-body">
@@ -15,27 +15,28 @@
         </div>
         <br>
       <% } %>
-      <form action="/students/edit/<%= data.id %>" method="post">
+      <form action="/subjects/<%= subject.id %>/<%= student.id %>/givescore" method="post">
         <table class="table">
-          <input type="hidden" name="id" value="<%= data.id %>">
           <tr>
-            <td>First Name</td>
+            <td>Name</td>
             <td>:</td>
-            <td><input type="text" name="first_name" value="<%= data.first_name %>" required></td>
+            <td><%= student.getFullName() %></td>
           </tr>
           <tr>
-            <td>Last Name</td>
+            <td>Subject</td>
             <td>:</td>
-            <td><input type="text" name="last_name" value="<%= data.last_name %>" required></td>
+            <td><%= subject.subject_name %></td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td>Score</td>
             <td>:</td>
-            <td><input type="text" name="email" value="<%= data.email %>" required></br></td>
+            <td><input type="text" name="score" value="<%= repopulate ? repopulate.score : "" %>" required></br></td>
           </tr>
           <tr>
             <td colspan="3"><input class="btn btn-primary" type="submit" name="submit" value="Update"></td>
           </tr>
+          <input type="hidden" name="studentId" value="<%= student.id %>">
+          <input type="hidden" name="subjectId" value="<%= subject.id %>">
         </table>
       </form>
     </div>

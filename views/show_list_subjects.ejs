@@ -25,8 +25,9 @@
       <table id='subjects' class="display" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>No.</th>
             <th>Subject Name</th>
+            <th>Teachers</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -34,9 +35,17 @@
           <% if (subjects.length > 0) { %>
             <% for (let i = 0; i < subjects.length; i++) { %>
             <tr>
-              <td><%= subjects[i].id %></td>
+              <td><%= i+1 %></td>
               <td><%= subjects[i].subject_name %></td>
               <td>
+                <ol>
+                  <%subjects[i].Teachers.forEach(teacher => { %>
+                    <li><%= teacher.getFullName() %></li>
+                  <%})%>
+                </ol>
+              </td>
+              <td>
+                <a href="/subjects/<%= subjects[i].id %>/enrolledstudents">Enrolled Students</a> |
                 <a href="/subjects/edit/<%= subjects[i].id %>">Edit</a> |
                 <a onclick="return confirm('Are you sure?')" href="/subjects/delete/<%= subjects[i].id %>">Delete</a>
               </td>
@@ -49,6 +58,7 @@
           <% } %>
         </tbody>
       </table>
+      <a href="/subjects/add"><button type="button" class="btn btn-primary">Add Subject</button></a>
     </div>
     <% include ./partials/footer %>
     <script>

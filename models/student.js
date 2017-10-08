@@ -1,4 +1,5 @@
 'use strict';
+const getFullName = require('../helpers/getFullName');
 module.exports = (sequelize, DataTypes) => {
   var Student = sequelize.define('Student', {
     first_name: DataTypes.STRING,
@@ -37,9 +38,20 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+  Student.associate = function(model) {
+    Student.hasMany(model.StudentSubject, {
+      foreignKey: 'studentId',
+      sourceKey: 'id',
+    });
+    Student.belongsToMany(model.Subject, {
+      through: 'StudentSubject',
+      foreignKey: 'studentId',
+      otherKey: 'subjectId',
+    })
+  };
   // Instance Method
   Student.prototype.getFullName = function() {
-    return this.first_name + ' ' + this.last_name;
+    return getFullName(this.first_name, this.last_name);
   }
   return Student;
 };

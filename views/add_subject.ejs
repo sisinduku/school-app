@@ -6,7 +6,7 @@
   <body>
     <% include ./partials/header %>
     <div class="container">
-      <h2>Add New Contact</h2>
+      <h2>Add New Subject</h2>
       <% if(err) { %>
         <div class="card text-white bg-danger">
           <div class="card-body">
@@ -15,22 +15,12 @@
         </div>
         <br>
       <% } %>
-      <form action="/students/add" method="post">
+      <form action="/subjects/add" method="post">
         <table class="table">
           <tr>
-            <td>First Name</td>
+            <td>Subject Name</td>
             <td>:</td>
-            <td><input type="text" name="first_name" value="<%= repopulate ? repopulate.first_name : '';%>" required></td>
-          </tr>
-          <tr>
-            <td>Last Name</td>
-            <td>:</td>
-            <td><input type="text" name="last_name" value="<%= repopulate ? repopulate.last_name : '';%>" required></td>
-          </tr>
-          <tr>
-            <td>Email</td>s
-            <td>:</td>
-            <td><input type="text" name="email" value="<%= repopulate ? repopulate.email : '';%>" required></br></td>
+            <td><input type="text" name="subject_name" value="<%= repopulate ? repopulate.subject_name : '';%>" required></td>
           </tr>
           <tr>
             <td colspan="3"><input class="btn btn-primary" type="submit" name="submit" value="Submit"></td>

@@ -14,6 +14,14 @@ router.post('/add/', (req, res) => {
   StudentCtrl.postStudent(req, res);
 });
 
+router.get('/:studentId/addsubject', (req, res) => {
+  StudentCtrl.getAddSubject(req, res, {});
+});
+
+router.post('/:studentId/addsubject', (req, res) => {
+  StudentCtrl.addSubject(req, res, {});
+});
+
 router.get('/edit/:studentId', (req, res) => {
   StudentCtrl.getEdit(req, res, {});
 });
