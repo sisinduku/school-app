@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+      <%- redirect %>
+    </script>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Signup Success</h1>
+        <p class="lead"><%= data.username %> is successfully created
+          <small>You will be automatically redirected</small>
+        </p>
+      </div>
+    </div>
+    <% include ./partials/footer %>
+  </body>
+</html>

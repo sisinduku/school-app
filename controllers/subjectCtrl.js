@@ -9,6 +9,7 @@ class SubjectCtrl {
           title: 'Show All Subjects',
           subjects: subjects,
           page: 'subjects-nav',
+          session: req.session,
           err: param.hasOwnProperty('err') ? param.err : null,
           data: param.hasOwnProperty('data') ? param.data : null,
           repopulate: param.hasOwnProperty('repopulate') ? param.repopulate : null,
@@ -34,6 +35,7 @@ class SubjectCtrl {
           title: 'Enrolled Students',
           page: 'subjects-nav',
           subject: value,
+          session: req.session,
           err: param.hasOwnProperty('err') ? param.err : null,
         });
       });
@@ -66,6 +68,7 @@ class SubjectCtrl {
         res.render('add_score', {
           title: 'Scoring Student',
           page: 'subjects-nav',
+          session: req.session,
           student: values[0],
           subject: values[1],
           err: param.hasOwnProperty('err') ? param.err : null,
@@ -96,6 +99,7 @@ class SubjectCtrl {
     res.render('add_subject', {
       title: 'Add subject',
       page: 'subjects-nav',
+      session: req.session,
       err: (param.hasOwnProperty('err')) ? param.err : null,
       repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
     })
@@ -126,6 +130,7 @@ class SubjectCtrl {
           data: subject,
           title: 'Show All Subjects',
           page: 'subjects-nav',
+          session: req.session,
           err: (param.hasOwnProperty('err')) ? param.err : null,
           repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
         })

@@ -11,6 +11,7 @@ class StudentCtrl {
           title: 'Show All Students',
           students: students,
           page: 'students-nav',
+          session: req.session,
           err: (param.hasOwnProperty('err')) ? param.err : null,
           data: (param.hasOwnProperty('data')) ? param.data : null,
           repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
@@ -26,6 +27,7 @@ class StudentCtrl {
     res.render('add_student', {
       title: 'Add Student',
       page: 'students-nav',
+      session: req.session,
       err: (param.hasOwnProperty('err')) ? param.err : null,
       repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
     })
@@ -56,6 +58,7 @@ class StudentCtrl {
           data: student,
           title: 'Show All Students',
           page: 'students-nav',
+          session: req.session,
           err: (param.hasOwnProperty('err')) ? param.err : null,
           repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
         })
@@ -127,6 +130,7 @@ class StudentCtrl {
         res.render('add_student_subject', {
           data: values[0],
           subjects: result,
+          session: req.session,
           title: 'Show All Students',
           page: 'students-nav',
           err: (param.hasOwnProperty('err')) ? param.err : null,

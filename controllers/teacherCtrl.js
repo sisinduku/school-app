@@ -17,6 +17,7 @@ class TeacherCtrl {
           teachers: values[0],
           listSubjects: values[1],
           page: 'teachers-nav',
+          session: req.session,
           err: param.hasOwnProperty('err') ? param.err : null,
           data: param.hasOwnProperty('data') ? param.data : null,
           repopulate: param.hasOwnProperty('repopulate') ? param.repopulate : null,
@@ -59,6 +60,7 @@ class TeacherCtrl {
           title: 'Edit Teacher ' + values[0].getFullName(),
           listSubjects: values[1],
           page: 'teachers-nav',
+          session: req.session,
           err: (param.hasOwnProperty('err')) ? param.err : null,
           repopulate: (param.hasOwnProperty('repopulate')) ? param.repopulate : null,
         })
