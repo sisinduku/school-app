@@ -4,7 +4,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.render('index', {
     title: 'Home',
-    page: 'home-nav'
+    page: 'home-nav',
+    session: req.session,
   });
 });
 

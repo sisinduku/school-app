@@ -8,15 +8,30 @@
       <li id="home-nav" class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <li id="teachers-nav" class="nav-item">
-        <a class="nav-link" href="/teachers">Teachers</a>
-      </li>
-      <li id="subjects-nav" class="nav-item">
-        <a class="nav-link" href="/subjects">Subjects</a>
-      </li>
-      <li id="students-nav" class="nav-item">
-        <a class="nav-link" href="/students">Students</a>
-      </li>
+      <%if(session.role === 'teacher' || session.role === 'academic' || session.role === 'headmaster'){ %>
+        <li id="students-nav" class="nav-item">
+          <a class="nav-link" href="/students">Students</a>
+        </li>
+      <%}%>
+      <%if(session.role === 'academic' || session.role === 'headmaster'){ %>
+        <li id="subjects-nav" class="nav-item">
+          <a class="nav-link" href="/subjects">Subjects</a>
+        </li>
+      <%}%>
+      <%if(session.role === 'headmaster'){ %>
+        <li id="teachers-nav" class="nav-item">
+          <a class="nav-link" href="/teachers">Teachers</a>
+        </li>
+      <%}%>
+      <%if(session.username){ %>
+        <li id="login-nav" class="nav-item">
+          <a class="nav-link" href="/auth/logout">Logout</a>
+        </li>
+      <%} else {%>
+        <li id="login-nav" class="nav-item">
+          <a class="nav-link" href="/auth/login">Login</a>
+        </li>
+      <%}%>
     </ul>
   </div>
 </nav>

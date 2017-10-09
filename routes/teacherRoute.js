@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const TeacherCtrl = require('../controllers/teacherCtrl');
+const checkAuth = require('../helpers/checkAuth');
+const checkPrivilege = require('../helpers/checkPrivilege');
+
+router.use(function(req, res, next) {
+  checkAuth(req, res, next);
+});
+router.use(function(req, res, next) {
+  checkPrivilege(req, res, next);
+});
 
 router.get('/', (req, res) => {
   TeacherCtrl.getIndex(req, res, {});
