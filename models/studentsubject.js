@@ -1,4 +1,5 @@
 'use strict';
+const getScoreLetter = require('../helpers/getScoreLetter');
 module.exports = (sequelize, DataTypes) => {
   var StudentSubject = sequelize.define('StudentSubject', {
     studentId: DataTypes.INTEGER,
@@ -27,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'subjectId',
       sourceKey: 'id'
     })
+  };
+  StudentSubject.prototype.getScoreLetter = function() {
+    return getScoreLetter(this.score);
   };
   return StudentSubject;
 };
